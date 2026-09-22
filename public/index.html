@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AM Premium - AVORYIX</title>
+
+<style>
+body{
+    background:#090909;
+    color:white;
+    font-family:Arial;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.card{
+    background:#151515;
+    padding:30px;
+    border-radius:20px;
+    width:350px;
+    text-align:center;
+}
+
+input{
+    width:90%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    margin:15px;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:10px;
+    background:#8b5cff;
+    color:white;
+    cursor:pointer;
+}
+
+#status{
+    margin-top:15px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>AM Premium</h1>
+
+<p>
+Generate by<br>
+<b>AVORYIX Developer : Putra</b>
+</p>
+
+<input 
+id="email"
+type="email"
+placeholder="Masukkan Gmail">
+
+<br>
+
+<button onclick="sendLink()">
+Kirim Magic Link
+</button>
+
+<p id="status"></p>
+
+</div>
+
+
+<script>
+
+async function sendLink(){
+
+let email=document.getElementById("email").value;
+let status=document.getElementById("status");
+
+status.innerHTML="Mengirim...";
+
+let res=await fetch("/api/generate",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+email:email
+})
+});
+
+let data=await res.json();
+
+status.innerHTML=data.message;
+
+}
+
+</script>
+
+</body>
+</html>
